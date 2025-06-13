@@ -1,0 +1,4 @@
+restaurantes Bilbao
+gimnasios Barcelona
+hoteles Sevilla
+cafeterías Madrid

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2 class="mb-4">📋 Resultados</h2>
+  <a href="{{ url_for('panel.exportar_resultados') }}" class="btn btn-success mb-3">📥 Exportar CSV</a>
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>Keyword</th>
+        <th>Título</th>
+        <th>Teléfono</th>
+        <th>Web</th>
+        <th>Fecha</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for r in resultados.items %}
+      <tr>
+        <td>{{ r.keyword.keyword }}</td>
+        <td>{{ r.title }}</td>
+        <td>{{ r.phone }}</td>
+        <td><a href="{{ r.website }}" target="_blank">{{ r.website }}</a></td>
+        <td>{{ r.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <nav aria-label="Paginación">
+    <ul class="pagination">
+      {% if resultados.has_prev %}
+        <li class="page-item">
+          <a class="page-link" href="{{ url_for('panel.resultados', page=resultados.prev_num) }}">Anterior</a>
+        </li>
+      {% endif %}
+      <li class="page-item disabled"><span class="page-link">Página {{ resultados.page }} de {{ resultados.pages }}</span></li>
+      {% if resultados.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="{{ url_for('panel.resultados', page=resultados.next_num) }}">Siguiente</a>
+        </li>
+      {% endif %}
+    </ul>
+  </nav>
+{% endblock %}
